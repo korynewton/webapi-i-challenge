@@ -41,6 +41,11 @@ server.get('/api/users/:id', (req, res) => {
 //POST new user:
 server.post('/api/users', (req, res) => {
     const user = req.body
+
+    if (!user.name || !user.bio) {
+        return res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+    }
+
     db.insert(user)
     .then( usr => {
         res.status(201).json(usr)
