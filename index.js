@@ -38,6 +38,18 @@ server.get('/api/users/:id', (req, res) => {
     })
 })
 
+//POST new user:
+server.post('/api/users', (req, res) => {
+    const user = req.body
+    db.insert(user)
+    .then( usr => {
+        res.status(201).json(usr)
+    })
+    .catch(err => {
+        res.status(500).json({ error: "There was an error while saving the user to the database" })
+    })
+})
+
 server.listen(4000, () => {
     console.log('\n** Project API up and running on port 4k **');
   });
